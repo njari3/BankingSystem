@@ -14,6 +14,7 @@ namespace BankingSystem
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             var app = builder.Build();
 
