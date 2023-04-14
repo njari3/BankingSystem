@@ -1,3 +1,6 @@
+using BankingSystem.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace BankingSystem
 {
     public class Program
@@ -10,6 +13,8 @@ namespace BankingSystem
 
             builder.Services.AddControllers();
 
+            builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -20,6 +25,9 @@ namespace BankingSystem
 
 
             app.MapControllers();
+
+            PredDb.PrepPopulation(app, builder.Environment.IsProduction());
+
 
             app.Run();
         }
