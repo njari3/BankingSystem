@@ -1,4 +1,6 @@
-﻿namespace BankingSystem.Data
+﻿using System.Linq.Expressions;
+
+namespace BankingSystem.Data
 {
     public interface IRepository<T> where T : class
     {
@@ -6,5 +8,6 @@
         Task AddAsync(T entity);
         Task SaveChange();
         void Remove(T entity);
+        Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
     }
 }

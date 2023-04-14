@@ -43,6 +43,14 @@ namespace BankingSystem.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetAccountList/{userId}")]
+        public async Task<ActionResult<List<Account>>> GetAccountList(int userId)
+        {
+            var accountList = await _accountService.GetAccountListByUserId(userId);
+
+            return Ok(_mapper.Map<IEnumerable<AccountReadDto>>(accountList));
+        }
+
         [HttpPost("CreateAccount/{id}")]
         public async Task<ActionResult<Account>> CreateAccount(int id)
         {

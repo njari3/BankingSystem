@@ -11,6 +11,12 @@ namespace BankingSystem.Services
             _accountRepository = accountRepository;
         }
 
+        public async Task<IEnumerable<Account>> GetAccountListByUserId(int id)
+        {
+            var restul = await _accountRepository.FindAsync(c => c.User.Id == id);
+            return restul;
+        }
+
         public async Task<Account> GetAccount(int id)
         {
             var restul = await _accountRepository.GetById(id);
