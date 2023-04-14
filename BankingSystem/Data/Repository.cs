@@ -31,6 +31,11 @@ namespace BankingSystem.Data
             await _dbSet.AddAsync(entity);
         }
 
+        public void Update(T entity)
+        {
+            _dbSet.Update(entity);
+        }
+
         public void Remove(T entity)
         {
             if (entity != null)

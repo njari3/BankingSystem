@@ -9,5 +9,6 @@ namespace BankingSystem.Data
         Task SaveChange();
         void Remove(T entity);
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
+        void Update(T entity);
     }
 }

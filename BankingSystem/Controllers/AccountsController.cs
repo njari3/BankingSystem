@@ -89,5 +89,33 @@ namespace BankingSystem.Controllers
             return Ok();
         }
 
+        [HttpPost("MoneyTransfer")]
+        public async Task<ActionResult> MoneyTransfer(AccountMoneyTransferDto accountDeposit)
+        {
+            var user = await _userService.GetUser(accountDeposit.UserId);
+
+            if (user == null)
+                return NotFound("User not found!");
+
+            var account = await _accountService.GetAccount(accountDeposit.AccountId);
+
+            if (account == null)
+                return NotFound("Account not found!");
+
+            if (user.Id != account.User.Id)
+                return BadRequest("The user id and the account id are not the same");
+
+            try
+            {
+                _accountService.MoneyTransfer(account, accountDeposit);
+                await _accountService.SaveChange();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(_mapper.Map<AccountReadDto>(account));
+        }
     }
 }
