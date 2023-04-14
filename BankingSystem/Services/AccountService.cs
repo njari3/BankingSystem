@@ -11,6 +11,12 @@ namespace BankingSystem.Services
             _accountRepository = accountRepository;
         }
 
+        public async Task<Account> GetAccount(int id)
+        {
+            var restul = await _accountRepository.GetById(id);
+            return restul;
+        }
+
         public Account CreateAccount(User user)
         {
             if (user == null)

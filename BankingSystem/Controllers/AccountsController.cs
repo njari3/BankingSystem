@@ -29,7 +29,18 @@ namespace BankingSystem.Controllers
         [HttpGet("GetAccount/{userId}/{accountId}", Name = "GetAccount")]
         public async Task<ActionResult<Account>> GetAccount(int userId, int accountId)
         {
-            return Ok();
+            var user = await _userService.GetUser(userId);
+
+            if (user == null)
+                return NotFound();
+
+            var account = await _accountService.GetAccount(accountId);
+
+            if (account == null)
+                return NotFound();
+
+            var result = _mapper.Map<AccountReadDto>(account);
+            return Ok(result);
         }
 
         [HttpPost("CreateAccount/{id}")]
