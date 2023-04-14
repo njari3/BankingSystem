@@ -1,4 +1,5 @@
 using BankingSystem.Data;
+using BankingSystem.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankingSystem
@@ -15,6 +16,7 @@ namespace BankingSystem
 
             builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var app = builder.Build();
 
