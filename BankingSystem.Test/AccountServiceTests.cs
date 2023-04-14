@@ -42,5 +42,22 @@ namespace BankingSystem.Test
             Assert.Throws<ArgumentNullException>(() => _accountService.CreateAccount(user));
         }
 
+
+        [Test]
+        public void DeleteAccount_ZeroBalance_RemovesAccount()
+        {
+            var account = new Account { Balance = 0 };
+            _accountService.DeleteAccount(account);
+            _accountRepository.Verify(r => r.Remove(account), Times.Once);
+        }
+
+        [Test]
+        public void DeleteAccount_NonZeroBalance_ThrowsInvalidOperationException()
+        {
+            var account = new Account { Balance = 100 };
+
+            Assert.Throws<InvalidOperationException>(() => _accountService.DeleteAccount(account));
+            _accountRepository.Verify(r => r.Remove(It.IsAny<Account>()), Times.Never);
+        }
     }
 }

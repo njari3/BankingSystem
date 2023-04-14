@@ -27,6 +27,14 @@ namespace BankingSystem.Services
             return account;
         }
 
+        public void DeleteAccount(Account account)
+        {
+            if (account.Balance > 0)
+                throw new InvalidOperationException();
+
+            _accountRepository.Remove(account);
+        }
+
         public async Task SaveChange()
         {
             await _accountRepository.SaveChange();

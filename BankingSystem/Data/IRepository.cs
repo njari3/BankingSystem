@@ -5,5 +5,6 @@
         Task<T> GetById(int id);
         Task AddAsync(T entity);
         Task SaveChange();
+        void Remove(T entity);
     }
 }

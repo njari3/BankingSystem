@@ -58,5 +58,28 @@ namespace BankingSystem.Controllers
 
             return CreatedAtRoute(nameof(GetAccount), new { UserId = id, accountId = account.Id }, result);
         }
+
+
+        [HttpDelete("DeleteAccount/{accountId}")]
+        public async Task<IActionResult> DeleteAccount(int accountId)
+        {
+            var account = await _accountService.GetAccount(accountId);
+
+            if (account == null)
+                return NotFound("Account not found!");
+
+            try
+            {
+                _accountService.DeleteAccount(account);
+                await _accountService.SaveChange();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
     }
 }

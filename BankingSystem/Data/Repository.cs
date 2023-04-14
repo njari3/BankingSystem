@@ -25,7 +25,14 @@ namespace BankingSystem.Data
         {
             await _dbSet.AddAsync(entity);
         }
-             
+
+        public void Remove(T entity)
+        {
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
+        }
         public async Task SaveChange()
         {
             await _context.SaveChangesAsync();
