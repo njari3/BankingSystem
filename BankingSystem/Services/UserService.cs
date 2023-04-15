@@ -9,10 +9,16 @@ namespace BankingSystem.Services
 
         public UserService(IRepository<User> userRepository)
         {
-            _userRepository = userRepository;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
-        public async Task<User> GetUser(int id) => await _userRepository.GetById(id);
+        public async Task<User> GetUser(int userId)
+        {
+            if (userId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(userId), "User ID must be greater than zero.");
+
+            return await _userRepository.GetById(userId);
+        }
 
     }
 }

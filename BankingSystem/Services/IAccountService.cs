@@ -8,10 +8,10 @@ namespace BankingSystem.Services
     {
         Account CreateAccount(User user);
         void DeleteAccount(Account account);
-        Task<Account> GetAccount(int id);
-        Task<IEnumerable<Account>> GetAccountListByUserId(int id);
-        void MoneyTransfer(Account account, AccountMoneyTransferDto accountDeposit);
-        void MoneyTransfer(Account account, decimal Amount, MoneyTransfer moneyTransfer);
-        Task SaveChange();
+        Task<Account> GetAccountAsync(int accountId);
+        Task<IEnumerable<Account>> GetAccountsByUserIdAsync(int userId);
+        void TransferMoney(Account account, AccountMoneyTransferDto accountMoneyTransfer);
+        void TransferMoney(Account account, decimal amount, MoneyTransfer moneyTransfer);
+        Task SaveChangesAsync();
     }
 }
